@@ -24,6 +24,7 @@ type FormikErrorType = {
 
 const Register = () => {
   const isLoading = useAppSelector((state) => state.app.isLoading);
+  const q = useAppSelector((state) => state.auth.q)
   const dispatch = useAppDispatch()
   const registerHandler = () => {
 
@@ -34,6 +35,7 @@ const Register = () => {
     {isLoading && <h1>Loader...</h1>}
     Register <br/>
     <button onClick={registerHandler}>register</button>
+    <div>state: {q}</div>
   </div>
 }
 
