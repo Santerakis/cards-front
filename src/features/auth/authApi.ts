@@ -2,7 +2,11 @@ import { instance } from "common/api/commonApi"
 
 export const authApi = {
   register: (arg: ArgRegisterType) => {
+
     return instance.post<RegisterResponseType>("auth/register", arg)
+  },
+  login: (arg: ArgLoginType) => {
+    return instance.post<ProfileType>("auth/login", arg)
   }
 }
 
