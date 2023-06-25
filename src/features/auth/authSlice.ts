@@ -9,32 +9,38 @@ const register = createAppAsyncThunk<any, ArgRegisterType>("auth/registerThunk",
   const { dispatch, rejectWithValue } = thunkAPI
 
   // return authApi.register(arg).then(res => {
-  //   return 'www'
+  //   return { ee: "then" }
   // })
   //   .catch(e => {
-  //     const err = e.response.data.error
   //     debugger
-  //     // dispatch(authActions.setString({q: err}))
-  //     return rejectWithValue({ q: 'catch_samurai' })
+  //     dispatch(authActions.setString({ q: "catch_then" }))
+  //     return rejectWithValue({ qq: "catch_samurai" })
   //   })
 
-  // try {
+  try {
     const res = await authApi.register(arg)
     return res
-  // } catch (e: any) {
-  //   const err = e.response.data.error
-   //   console.error('reg_error: ', e)
-  //   return rejectWithValue({ q: err })
-  // }
+  } catch (e: any) {
+    const err = e.response.data.error
+    console.error('reg_error: ', e)
+    // return rejectWithValue({ qq: err })
+  }
 
 })
-const login = createAsyncThunk("auth/loginThunk", (arg: ArgLoginType, thunkAPI) => {
-  const { dispatch } = thunkAPI
+const login = createAsyncThunk("auth/loginThunk", async (arg: ArgLoginType, thunkAPI) => {
+  const { dispatch, rejectWithValue } = thunkAPI
   // debugger
-authApi.login(arg).then(res => {
+//   dispatch(authActions.setString({ q: "start" }))
+return authApi.login(arg).then(res => {
     dispatch(authActions.setString({ q: "hello" }))
-    // return {q: 'hey111'}
-  })
+    return { qw: "hey111" }
+  }).catch(e => {
+    return rejectWithValue({ qw: "hey111" })
+})
+
+  // const res = await authApi.login(arg)
+  // return { q: "hey111" }
+
 })
 
 const slice = createSlice({
@@ -45,25 +51,30 @@ const slice = createSlice({
   reducers: {
     setString: (state, action: PayloadAction<{ q: string }>) => {
       state.q = action.payload.q
-
     }
   },
 
   extraReducers: builder => {
     builder
       .addCase(login.fulfilled, (state, action) => {
-      // state.q = action.payload.q
-      state.q = 'eee'
-    })
+        state.q = action.payload.qw
+        debugger
+        // state.q = "extra"
+      })
+      .addCase(login.rejected, (state, action) => {
+        // state.q = action.payload.q
+        debugger
+        state.q = "extra"
+      })
       .addCase(register.rejected, (state, action) => {
-      debugger
-      state.q = 'hello_rejected'
-      // state.q = action.payload.q
-    })
+        debugger
+        // state.q = "extra_rejected"
+        state.q = action.payload!.qqq
+      })
       .addCase(register.fulfilled, (state, action) => {
-      debugger
-      state.q = 'hello_fulfilled'
-    })
+        debugger
+        state.q = "extra_fulfilled"
+      })
 
   }
 
