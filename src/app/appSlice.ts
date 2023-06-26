@@ -11,8 +11,13 @@ const slice = createSlice({
     //так пока не асинхронцины
     setIsLoading: (state, action: PayloadAction<{isLoading: boolean}>) => {
       state.isLoading = action.payload.isLoading
+    },
+    setAppError: (state, action: PayloadAction<{error: string | null}>) => {
+      debugger
+      state.error = action.payload.error
     }
-  }
+  },
+  extraReducers: builder => {}
 })
 
 export const appReducer = slice.reducer //для подключения

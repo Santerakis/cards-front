@@ -13,17 +13,19 @@ const register = createAppAsyncThunk<any, ArgRegisterType>("auth/registerThunk",
   // })
   //   .catch(e => {
   //     debugger
+  //     const err = e.ww
   //     dispatch(authActions.setString({ q: "catch_then" }))
   //     return rejectWithValue({ qq: "catch_samurai" })
   //   })
 
   try {
+    debugger
     const res = await authApi.register(arg)
     return res
   } catch (e: any) {
-    const err = e.response.data.error
-    console.error('reg_error: ', e)
-    // return rejectWithValue({ qq: err })
+    const error = e.response ? e.response.data.error : e.message
+    dispatch(appActions.setAppError({ error }))
+    return rejectWithValue(null)
   }
 
 })
@@ -31,12 +33,12 @@ const login = createAsyncThunk("auth/loginThunk", async (arg: ArgLoginType, thun
   const { dispatch, rejectWithValue } = thunkAPI
   // debugger
 //   dispatch(authActions.setString({ q: "start" }))
-return authApi.login(arg).then(res => {
+  return authApi.login(arg).then(res => {
     dispatch(authActions.setString({ q: "hello" }))
     return { qw: "hey111" }
   }).catch(e => {
     return rejectWithValue({ qw: "hey111" })
-})
+  })
 
   // const res = await authApi.login(arg)
   // return { q: "hey111" }
@@ -50,6 +52,7 @@ const slice = createSlice({
   },
   reducers: {
     setString: (state, action: PayloadAction<{ q: string }>) => {
+      debugger
       state.q = action.payload.q
     }
   },
@@ -68,8 +71,8 @@ const slice = createSlice({
       })
       .addCase(register.rejected, (state, action) => {
         debugger
-        // state.q = "extra_rejected"
-        state.q = action.payload!.qqq
+        state.q = "extra_rejected"
+        // state.q = action.payload.qq
       })
       .addCase(register.fulfilled, (state, action) => {
         debugger
