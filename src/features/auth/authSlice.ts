@@ -1,22 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { ArgLoginType, ArgRegisterType, authApi } from "features/auth/authApi"
-import { useAppDispatch } from "app/hooks"
+import { useAppDispatch } from "common/hooks/hooks"
 import { appActions } from "app/appSlice"
 import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk"
 
 const register = createAppAsyncThunk<any, ArgRegisterType>("auth/registerThunk", async (arg, thunkAPI) => {
 
   const { dispatch, rejectWithValue } = thunkAPI
-
-  // return authApi.register(arg).then(res => {
-  //   return { ee: "then" }
-  // })
-  //   .catch(e => {
-  //     debugger
-  //     const err = e.ww
-  //     dispatch(authActions.setString({ q: "catch_then" }))
-  //     return rejectWithValue({ qq: "catch_samurai" })
-  //   })
 
   try {
     debugger

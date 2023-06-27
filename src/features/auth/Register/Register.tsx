@@ -11,7 +11,7 @@ import {
   Typography
 } from "@mui/material"
 import { useFormik } from "formik"
-import { useAppDispatch, useAppSelector } from "app/hooks"
+import { useAppDispatch, useAppSelector } from "common/hooks/hooks"
 import { appActions } from "app/appSlice"
 import s from "./Register.module.css"
 import { authThunks } from "features/auth/authSlice"

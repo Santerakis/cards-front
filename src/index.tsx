@@ -5,15 +5,15 @@ import { store } from './app/store';
 import App from 'app/App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
+import { GlobalError } from "common/globalError/globalError"
+import 'react-toastify/dist/ReactToastify.css'
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
       <App />
-    </Provider>
   </React.StrictMode>
 );
 
