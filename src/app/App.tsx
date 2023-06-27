@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Register from "features/auth/Register/Register"
 import Login from "features/auth/Login/Login"
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material"
-import { GlobalError } from "common/globalError/globalError"
+import { GlobalError } from "common/GlobalError/GlobalError"
 import 'react-toastify/dist/ReactToastify.css';
 
 

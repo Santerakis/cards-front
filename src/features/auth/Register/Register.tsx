@@ -28,7 +28,7 @@ const Register = () => {
   const dispatch = useAppDispatch()
   const registerHandler = () => {
 
-    dispatch(authThunks.register({email: "ccfssss@bk.ru", password: "12345678"}));
+    dispatch(authThunks.register({email: "ccfssssq@bk.ru", password: "12345678"}));
   };
 
   return <div>

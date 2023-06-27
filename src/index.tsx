@@ -5,7 +5,7 @@ import { store } from './app/store';
 import App from 'app/App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import { GlobalError } from "common/globalError/globalError"
+import { GlobalError } from "common/GlobalError/GlobalError"
 import 'react-toastify/dist/ReactToastify.css'
 
 const container = document.getElementById('root')!;

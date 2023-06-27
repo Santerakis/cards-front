@@ -3,36 +3,32 @@ import { ArgLoginType, ArgRegisterType, authApi } from "features/auth/authApi"
 import { useAppDispatch } from "common/hooks/hooks"
 import { appActions } from "app/appSlice"
 import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk"
+import { thunkTryCatch } from "common/utils/thunkTryCatch"
+
+// const register = createAppAsyncThunk<any, ArgRegisterType>("auth/registerThunk", async (arg, thunkAPI) => {
+//   const { dispatch, rejectWithValue } = thunkAPI
+//   try {
+//     debugger
+//     const res = await authApi.register(arg)
+//     return res
+//   } catch (e: any) {
+//     const error = e.response ? e.response.data.error : e.message
+//     dispatch(appActions.setAppError({ error }))
+//     return rejectWithValue(null)
+//   }
+// })
 
 const register = createAppAsyncThunk<any, ArgRegisterType>("auth/registerThunk", async (arg, thunkAPI) => {
-
-  const { dispatch, rejectWithValue } = thunkAPI
-
-  try {
-    debugger
+  thunkTryCatch(thunkAPI, async () => {
     const res = await authApi.register(arg)
     return res
-  } catch (e: any) {
-    const error = e.response ? e.response.data.error : e.message
-    dispatch(appActions.setAppError({ error }))
-    return rejectWithValue(null)
-  }
-
-})
-const login = createAsyncThunk("auth/loginThunk", async (arg: ArgLoginType, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI
-  // debugger
-//   dispatch(authActions.setString({ q: "start" }))
-  return authApi.login(arg).then(res => {
-    dispatch(authActions.setString({ q: "hello" }))
-    return { qw: "hey111" }
-  }).catch(e => {
-    return rejectWithValue({ qw: "hey111" })
   })
+})
 
-  // const res = await authApi.login(arg)
-  // return { q: "hey111" }
-
+const login = createAppAsyncThunk<any, ArgLoginType>("auth/loginThunk", async (arg, thunkAPI) => {
+  return thunkTryCatch(thunkAPI, async () => {
+  return await authApi.login(arg)
+  })
 })
 
 const slice = createSlice({
@@ -50,9 +46,8 @@ const slice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(login.fulfilled, (state, action) => {
-        state.q = action.payload.qw
         debugger
-        // state.q = "extra"
+        state.q = "extra"
       })
       .addCase(login.rejected, (state, action) => {
         // state.q = action.payload.q
