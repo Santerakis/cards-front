@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { ArgLoginType, ArgRegisterType, authApi } from "features/auth/authApi"
+import { ArgLoginType, ArgRegisterType, authApi, ProfileType } from "features/auth/authApi"
 import { useAppDispatch } from "common/hooks/hooks"
 import { appActions } from "app/appSlice"
 import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk"
@@ -19,15 +19,17 @@ import { thunkTryCatch } from "common/utils/thunkTryCatch"
 // })
 
 const register = createAppAsyncThunk<any, ArgRegisterType>("auth/registerThunk", async (arg, thunkAPI) => {
-  thunkTryCatch(thunkAPI, async () => {
+ thunkTryCatch(thunkAPI, async () => {
     const res = await authApi.register(arg)
     return res
   })
 })
 
-const login = createAppAsyncThunk<any, ArgLoginType>("auth/loginThunk", async (arg, thunkAPI) => {
+const login = createAppAsyncThunk<{user: string}, ArgLoginType>("auth/loginThunk", async (arg, thunkAPI) => {
   return thunkTryCatch(thunkAPI, async () => {
-  return await authApi.login(arg)
+    const res = await authApi.login(arg)
+    console.log(res)
+    return {user: 'haha'}
   })
 })
 
@@ -63,7 +65,6 @@ const slice = createSlice({
         debugger
         state.q = "extra_fulfilled"
       })
-
   }
 
 })

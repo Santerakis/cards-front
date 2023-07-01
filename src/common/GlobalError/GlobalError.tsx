@@ -7,19 +7,20 @@ export const GlobalError = () => {
   const error = useAppSelector((state) => state.app.error);
   const dispatch = useAppDispatch();
 
-  if (error !== null) {
-    toast.error(error);
-  }
+  // if (error !== null) {
+  //   toast.error(error);
+  // }
 
   // Данный код необходим для того, чтобы занулять ошибку в стейте
   // после того как ошибка установилась.
-  useEffect(() => {
-    if (error !== null) {
-      setTimeout(() => {
-        dispatch(appActions.setAppError({ error: null }));
-      }, 1000);
-    }
-  }, [error]);
+
+  // useEffect(() => {
+  //   if (error !== null) {
+  //     setTimeout(() => {
+  //       dispatch(appActions.setAppError({ error: null }));
+  //     }, 1000);
+  //   }
+  // }, [error]);
 
   return (
     <ToastContainer

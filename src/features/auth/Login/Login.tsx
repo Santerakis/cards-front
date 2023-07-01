@@ -1,11 +1,14 @@
 import React from "react"
 import { useAppDispatch, useAppSelector } from "common/hooks/hooks"
 import { authThunks } from "features/auth/authSlice"
+import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 
 const Login = () => {
   const isLoading = useAppSelector((state) => state.app.isLoading)
   const q = useAppSelector((state) => state.auth.q)
   const dispatch = useAppDispatch()
+  const  navigate = useNavigate()
 
   const loginHandler = () => {
     const payload = {
@@ -13,7 +16,13 @@ const Login = () => {
       password: "12345678",
       rememberMe: false
     };
-    dispatch(authThunks.login(payload));
+    dispatch(authThunks.login(payload))
+      .unwrap()
+      .then(() => {
+        navigate('/packs')
+        toast.success('Login is good')
+      })
+      .catch((e) => toast.warning('incorrect login'))
   };
 
   return (
