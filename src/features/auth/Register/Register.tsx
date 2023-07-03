@@ -28,11 +28,11 @@ const Register = () => {
   const dispatch = useAppDispatch()
   const registerHandler = () => {
 
-    dispatch(authThunks.register({email: "ccfssssq@bk.ru", password: "12345678"}));
+    dispatch(authThunks.register({email: "ccfssssqss@bk.ru", password: "12345678"}));
   };
 
   return <div>
-    {isLoading && <h1>Loader...</h1>}
+    {/*{isLoading && <h1>Loader...</h1>}*/}
     Register <br/>
     <button onClick={registerHandler}>register</button>
     <div>state: {q}</div>

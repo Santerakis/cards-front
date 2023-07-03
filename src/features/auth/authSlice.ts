@@ -18,19 +18,21 @@ import { thunkTryCatch } from "common/utils/thunkTryCatch"
 //   }
 // })
 
-const register = createAppAsyncThunk<any, ArgRegisterType>("auth/registerThunk", async (arg, thunkAPI) => {
- thunkTryCatch(thunkAPI, async () => {
+const register = createAppAsyncThunk<{user: string}, ArgRegisterType>("auth/registerThunk", async (arg, thunkAPI) => {
+  debugger
+ return thunkTryCatch(thunkAPI, async () => {
+   debugger
     const res = await authApi.register(arg)
-    return res
-  })
+   return {user: 'haha'}
+  }, )
 })
 
-const login = createAppAsyncThunk<{user: string}, ArgLoginType>("auth/loginThunk", async (arg, thunkAPI) => {
+const login = createAppAsyncThunk<any, ArgLoginType>("auth/loginThunk", async (arg, thunkAPI) => {
   return thunkTryCatch(thunkAPI, async () => {
     const res = await authApi.login(arg)
     console.log(res)
     return {user: 'haha'}
-  })
+  }, false)
 })
 
 const slice = createSlice({

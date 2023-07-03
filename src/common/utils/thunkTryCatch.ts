@@ -16,52 +16,52 @@ import { toast } from "react-toastify"
 // };
 
 
-// export const thunkTryCatch = async (thunkAPI: BaseThunkAPI<RootState, any, AppDispatch, unknown>, logic: Function) => {
-//   const { dispatch, rejectWithValue } = thunkAPI;
-//   dispatch(appActions.setIsLoading ({isLoading: true}))
-//   try {
-//     return await logic();
-//   } catch (e) {
-//     debugger
-//     const err = e as Error | AxiosError<{ error: string }>;
-//     if (isAxiosError(err)) {
-//       const error = err.response ? err.response.data.error : err.message;
-//       dispatch(appActions.setAppError({ error }));
-//       toast.error(error)
-//     } else {
-//       dispatch(appActions.setAppError({ error: `Native error ${err.message}` }));
-//       toast.error(`Native error ${err.message}`)
-//     }
-//     return rejectWithValue(null);
-//   } finally {
-//     dispatch(appActions.setIsLoading( {isLoading: false}))
-//   }
-//
-// };
-
-
-export const thunkTryCatch = async <T>(thunkAPI: BaseThunkAPI<RootState, any, AppDispatch, unknown>,
-logic: () => Promise<T>,
-):Promise < T | ReturnType<typeof thunkAPI.rejectWithValue>> =>
-{
-  const { dispatch, rejectWithValue } = thunkAPI
-  dispatch(appActions.setIsLoading({ isLoading: true }))
+export const thunkTryCatch =
+  async (thunkAPI: BaseThunkAPI<RootState, any, AppDispatch, unknown>, logic: Function, showGlobalError?: boolean) => {
+  const { dispatch, rejectWithValue } = thunkAPI;
+  // dispatch(appActions.setIsLoading ({isLoading: true}))
   try {
-    return await logic()
+    return await logic();
   } catch (e) {
     debugger
-    const err = e as Error | AxiosError<{ error: string }>
-    if (isAxiosError(err)) {
-      const error = err.response ? err.response.data.error : err.message
-      dispatch(appActions.setAppError({ error }))
-      toast.error(error)
-    } else {
-      dispatch(appActions.setAppError({ error: `Native error ${err.message}` }))
-      toast.error(`Native error ${err.message}`)
-    }
-    return rejectWithValue(null)
+    // const err = e as Error | AxiosError<{ error: string }>;
+    //   const error = err.response ? err.response.data.error : err.message;
+    //   dispatch(appActions.setAppError({ error }));
+    //   toast.error(error)
+    // } else {
+    //   dispatch(appActions.setAppError({ error: `Native error ${err.message}` }));
+    //   toast.error(`Native error ${err.message}`)
+    // }
+    return rejectWithValue({ e, showGlobalError });
   } finally {
-    dispatch(appActions.setIsLoading({ isLoading: false }))
+    debugger
+    // dispatch(appActions.setIsLoading( {isLoading: false}))
   }
 
-}
+};
+
+
+// export const thunkTryCatch = async <T>(thunkAPI: BaseThunkAPI<RootState, any, AppDispatch, unknown>,
+// logic: () => Promise<T>,
+// ):Promise < T | ReturnType<typeof thunkAPI.rejectWithValue>> =>
+// {
+//   const { dispatch, rejectWithValue } = thunkAPI
+//   dispatch(appActions.setIsLoading({ isLoading: true }))
+//   try {
+//     return await logic()
+//   } catch (e) {
+//     debugger
+//     const err = e as Error | AxiosError<{ error: string }>
+//     if (isAxiosError(err)) {
+//       const error = err.response ? err.response.data.error : err.message
+//       dispatch(appActions.setAppError({ error }))
+//       toast.error(error)
+//     } else {
+//       dispatch(appActions.setAppError({ error: `Native error ${err.message}` }))
+//       toast.error(`Native error ${err.message}`)
+//     }
+//     return rejectWithValue(null)
+//   } finally {
+//     dispatch(appActions.setIsLoading({ isLoading: false }))
+//   }
+// }
